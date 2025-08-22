@@ -2,21 +2,25 @@ import { App, Editor, MarkdownView, Modal, Notice, Plugin, PluginSettingTab, Set
 
 // Remember to rename these classes and interfaces!
 
-interface MyPluginSettings {
+interface dizzyDinkySettings {
 	mySetting: string;
 }
 
-const DEFAULT_SETTINGS: MyPluginSettings = {
+const DEFAULT_SETTINGS: dizzyDinkySettings = {
 	mySetting: 'default'
 }
 
-export default class MyPlugin extends Plugin {
-	settings: MyPluginSettings;
+export default class dizzyDinky extends Plugin {
+	settings: dizzyDinkySettings;
 
 	async onload() {
 		await this.loadSettings();
-
-		// This creates an icon in the left ribbon.
+		const dizzyRibbon = this.addRibbonIcon('dice', 'dizzy', (evt: MouseEvent) => {
+			var img = "images/dinky her oiter.gif";
+			new Notice(img);
+		
+		});
+		/*// This creates an icon in the left ribbon.
 		const ribbonIconEl = this.addRibbonIcon('dice', 'Sample Plugin', (evt: MouseEvent) => {
 			// Called when the user clicks the icon.
 			new Notice('This is a notice!');
@@ -75,7 +79,7 @@ export default class MyPlugin extends Plugin {
 		});
 
 		// When registering intervals, this function will automatically clear the interval when the plugin is disabled.
-		this.registerInterval(window.setInterval(() => console.log('setInterval'), 5 * 60 * 1000));
+		this.registerInterval(window.setInterval(() => console.log('setInterval'), 5 * 60 * 1000));*/
 	}
 
 	onunload() {
@@ -108,9 +112,9 @@ class SampleModal extends Modal {
 }
 
 class SampleSettingTab extends PluginSettingTab {
-	plugin: MyPlugin;
+	plugin: dizzyDinky;
 
-	constructor(app: App, plugin: MyPlugin) {
+	constructor(app: App, plugin: dizzyDinky) {
 		super(app, plugin);
 		this.plugin = plugin;
 	}

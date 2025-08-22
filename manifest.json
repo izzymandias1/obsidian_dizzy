@@ -1,11 +1,11 @@
 {
-	"id": "deergirl-dinky",
-	"name": "Deergirl Dinky",
+	"id": "status-bar-buddy",
+	"name": "Status Bar Buddy",
 	"version": "1.0.0",
 	"minAppVersion": "0.15.0",
-	"description": "Literally just getting Dizzy in the corner so she can have a sippy.",
+	"description": "Started as a way of literally just getting Dizzy in the corner so she can have a sippy. Now you can have any buddy you want right there in the corner!",
 	"author": "Obsidian",
 	"authorUrl": "https://obsidian.md",
 	"fundingUrl": "https://obsidian.md/pricing",
-	"isDesktopOnly": false
+	"isDesktopOnly": true
 }

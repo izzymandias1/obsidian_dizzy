@@ -1,56 +1,31 @@
-import { App, Editor, MarkdownView, Modal, Notice, Plugin, PluginSettingTab, Setting } from 'obsidian';
+import { Plugin, Notice, App, PluginSettingTab, Setting,  } from 'obsidian'
 
-// Remember to rename these classes and interfaces!
-
-interface dizzyDinkySettings {
-	mySetting: string;
+interface dizzyDinkySettings  {
+	dizzySource: string;
 }
 
 const DEFAULT_SETTINGS: dizzyDinkySettings = {
-	mySetting: 'default'
+	dizzySource: 'https://raw.githubusercontent.com/izzymandias1/obsidian_dizzy/refs/heads/main/images/dinky%20her%20oiter.gif'
 }
 
 export default class dizzyDinky extends Plugin {
 	settings: dizzyDinkySettings;
-
-	async onload() {
+	async onload(){
 		await this.loadSettings();
-		const dizzyRibbon = this.addRibbonIcon('dice', 'dizzy', (evt: MouseEvent) => {
-			var img = "images/dinky her oiter.gif";
-			new Notice(img);	
-		});
+		console.log("dizzy loaded.");
+		const containerEl = this.addStatusBarItem().createEl('img');
+		containerEl.src = this.settings.dizzySource;
+		containerEl.style = "max-width: 56px;";
+		this.addSettingTab(new dizzyDinkySettings(this.app, this));
 	}
-
-	onunload() {
-
-	}
-
 	async loadSettings() {
 		this.settings = Object.assign({}, DEFAULT_SETTINGS, await this.loadData());
 	}
-
 	async saveSettings() {
 		await this.saveData(this.settings);
 	}
 }
-
-class SampleModal extends Modal {
-	constructor(app: App) {
-		super(app);
-	}
-
-	onOpen() {
-		const {contentEl} = this;
-		contentEl.setText('Woah!');
-	}
-
-	onClose() {
-		const {contentEl} = this;
-		contentEl.empty();
-	}
-}
-
-class SampleSettingTab extends PluginSettingTab {
+class dizzyDinkySettings extends PluginSettingTab {
 	plugin: dizzyDinky;
 
 	constructor(app: App, plugin: dizzyDinky) {
@@ -64,13 +39,13 @@ class SampleSettingTab extends PluginSettingTab {
 		containerEl.empty();
 
 		new Setting(containerEl)
-			.setName('Setting #1')
-			.setDesc('It\'s a secret')
+			.setName('Image source')
+			.setDesc('Must be from the web (local files is a work in progress!). Needs a restart to take effect.')
 			.addText(text => text
-				.setPlaceholder('Enter your secret')
-				.setValue(this.plugin.settings.mySetting)
+				.setPlaceholder('https://www.you-image-source.com')
+				.setValue(this.plugin.settings.dizzySource)
 				.onChange(async (value) => {
-					this.plugin.settings.mySetting = value;
+					this.plugin.settings.dizzySource = value;
 					await this.plugin.saveSettings();
 				}));
 	}
